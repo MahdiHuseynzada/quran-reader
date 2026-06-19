@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-			<meta name="viewport" content="width=device-width,initial-scale=1">
-				<title>Quran Reader</title>
-				<link rel="manifest" href="manifest.json">
-					<style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Quran Reader</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
     html {
         scroll-behavior: smooth;
     }
@@ -81,11 +82,12 @@
         margin-top: 10px;
     }
 
-audio {
-    width: 300px;
-    margin: 10px auto 0;
-    display: block;
-}
+    audio {
+        width: 300px;
+        margin: 10px auto 0;
+        display: block;
+    }
+
     .light {
         background: white;
         color: black;
@@ -95,35 +97,37 @@ audio {
         background: #f2f2f2;
     }
     </style>
-				</head>
-				<body>
-					<header>
-						<div onclick="goHome()" style="cursor:pointer">Quran Reader</div>
-						<div>
-							<button onclick="toggleMode()">☀️</button>
-							<button onclick="toggleScroll()">Auto</button>
-						</div>
-					</header>
-					<div style="padding:10px">
-						<input id="search" placeholder="Search verse">
-							<button onclick="searchVerse()">Search</button>
-						</div>
-						<div id="surahList"/>
-						<div id="reader">
-							<div id="ayahHeader"/>
-							<div>
-								<input id="ayahInput">
-									<span id="total"/>
-								</div>
-								<audio id="audio" controls>< audio>
-								<div class="translation" id="allText"/>
-								<div class="controls">
-									<button onclick="prevAyah()">←</button>
-									<button onclick="nextAyah()">→</button>
-									<button onclick="bookmark()">⭐</button>
-								</div>
-							</div>
-							<script>
+</head>
+
+<body>
+    <header>
+        <div onclick="goHome()" style="cursor:pointer">Quran Reader</div>
+        <div>
+            <button onclick="toggleMode()">☀️</button>
+            <button onclick="toggleScroll()">Auto</button>
+        </div>
+    </header>
+    <div style="padding:10px">
+        <input id="search" placeholder="Search verse">
+        <button onclick="searchVerse()">Search</button>
+    </div>
+    <div id="surahList" />
+    <div id="reader">
+        <div id="ayahHeader" />
+        <div>
+            <input id="ayahInput">
+            <span id="total" />
+        </div>
+        <audio id="audio" controls>
+            < audio>
+                <div class="translation" id="allText" />
+                <div class="controls">
+                    <button onclick="prevAyah()">←</button>
+                    <button onclick="nextAyah()">→</button>
+                    <button onclick="bookmark()">⭐</button>
+                </div>
+    </div>
+    <script>
     let currentSurah
     let currentAyah
     let totalAyahs
@@ -205,50 +209,35 @@ audio {
 
     }
 
+
     ayahInput.onchange = () => {
 
         let v = parseInt(ayahInput.value)
 
-        if (v >= 1 && v <= totalAyahs) { currentAyah=v loadAyah() } } function nextAyah() { if (currentAyah
-								< totalAyahs) { currentAyah++ loadAyah() window.scrollTo({ top: 0, behavior:"smooth" }) } } function prevAyah() { if (currentAyah> 1) {
+        if (v >= 1 && v <= totalAyahs) { currentAyah = v loadAyah() }
+    }
 
-            currentAyah--
+    function goHome() {
 
-            loadAyah()
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            })
-
-        }
+        document.getElementById("reader").style.display = "none"
+        document.getElementById("surahList").style.display = "block"
 
     }
 
-    function bookmark() {
-
-        let list = JSON.parse(localStorage.getItem("bookmarks") || "[]")
-
-        list.push(`${currentSurah}:${currentAyah}`)
-
-        localStorage.setItem("bookmarks", JSON.stringify(list))
-
-        alert("Bookmarked")
-
+    function nextAyah() {
+        if (currentAyah <
+            totalAyahs) { currentAyah++loadAyah() window.scrollTo({ top: 0, behavior: "smooth" }) }
     }
 
-    function toggleMode() {
+    function prevAyah() { if (currentAyah > 1) { currentAyah--loadAyah() window.scrollTo({ top: 0, behavior: "smooth" }) } }
 
-        document.body.classList.toggle("light")
+    function bookmark() { let list = JSON.parse(localStorage.getItem("bookmarks") || "[]") list.push(`${currentSurah}:${currentAyah}`) localStorage.setItem("bookmarks", JSON.stringify(list)) alert("Bookmarked") }
 
-    }
+    function toggleMode() { document.body.classList.toggle("light") }
 
     function toggleScroll() {
-
         autoScroll = !autoScroll
-
         if (autoScroll) {
-
             setInterval(() => {
 
                 if (autoScroll) nextAyah()
@@ -320,13 +309,7 @@ audio {
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('sw.js')
     }
-
-        function goHome() {
-
-    document.getElementById("reader").style.display = "none"
-    document.getElementById("surahList").style.display = "block"
-
-}
     </script>
-							</body>
-						</html>
+</body>
+
+</html>
