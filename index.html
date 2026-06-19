@@ -111,21 +111,22 @@
         <input id="search" placeholder="Search verse">
         <button onclick="searchVerse()">Search</button>
     </div>
-    <div id="surahList" />
+
+    <div id="surahList"></div>
+
     <div id="reader">
-        <div id="ayahHeader" />
+        <div id="ayahHeader"></div>
         <div>
             <input id="ayahInput">
-            <span id="total" />
+            <span id="total"></span>
         </div>
-        <audio id="audio" controls>
-            < audio>
-                <div class="translation" id="allText" />
-                <div class="controls">
-                    <button onclick="prevAyah()">←</button>
-                    <button onclick="nextAyah()">→</button>
-                    <button onclick="bookmark()">⭐</button>
-                </div>
+        <audio id="audio" controls></audio>
+        <div class="translation" id="allText"></div>
+        <div class="controls">
+            <button onclick="prevAyah()">←</button>
+            <button onclick="nextAyah()">→</button>
+            <button onclick="bookmark()">⭐</button>
+        </div>
     </div>
     <script>
     let currentSurah
@@ -212,10 +213,15 @@
 
     ayahInput.onchange = () => {
 
-        let v = parseInt(ayahInput.value)
+    let v = parseInt(ayahInput.value)
 
-        if (v >= 1 && v <= totalAyahs) { currentAyah = v loadAyah() }
+    if (v >= 1 && v <= totalAyahs) {
+        currentAyah = v
+        loadAyah()
     }
+
+}
+
 
     function goHome() {
 
@@ -225,13 +231,41 @@
     }
 
     function nextAyah() {
-        if (currentAyah <
-            totalAyahs) { currentAyah++loadAyah() window.scrollTo({ top: 0, behavior: "smooth" }) }
+
+    if (currentAyah < totalAyahs) {
+        currentAyah++
+        loadAyah()
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
     }
 
-    function prevAyah() { if (currentAyah > 1) { currentAyah--loadAyah() window.scrollTo({ top: 0, behavior: "smooth" }) } }
+}
 
-    function bookmark() { let list = JSON.parse(localStorage.getItem("bookmarks") || "[]") list.push(`${currentSurah}:${currentAyah}`) localStorage.setItem("bookmarks", JSON.stringify(list)) alert("Bookmarked") }
+    function prevAyah() {
+
+    if (currentAyah > 1) {
+        currentAyah--
+        loadAyah()
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+    }
+
+}
+
+
+    function bookmark() {
+
+    let list = JSON.parse(localStorage.getItem("bookmarks") || "[]")
+    list.push(`${currentSurah}:${currentAyah}`)
+    localStorage.setItem("bookmarks", JSON.stringify(list))
+    alert("Bookmarked")
+
+}
+
 
     function toggleMode() { document.body.classList.toggle("light") }
 
